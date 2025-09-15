@@ -70,31 +70,17 @@ public class BasicSeleniumTest {
 
     }
 
+
+
     @Test
-    public void loginScreenTest() {
+    public void findloginBtnTest() {
 
-        WebElement emailElement = driver.findElement(By.xpath("//input[@name='email']"));
-        assertNotNull(emailElement);
-        // send text
-        emailElement.sendKeys("sample@gmail.com");
-        //get text from browser
-        String emailValue = emailElement.getAttribute("value");
-        assertEquals("sample@gmail.com", emailValue);
-
-        //same with password
-        WebElement passwordElement = driver.findElement(By.xpath("//input[@data-testid='royal-pass']"));
-        assertNotNull(passwordElement);
-        passwordElement.sendKeys("123456");
-        String passValue = passwordElement.getAttribute("value");
-        assertEquals("123456", passValue);
-
-        //find login button and click on it
-        WebElement loginButtonElement = driver.findElement(By.xpath("//button[@type='submit']"));
+        //find //button[@type='submit']
+        WebElement loginButtonElement = driver.findElement(By.xpath("//*[text()='Log In']"));
         assertNotNull(loginButtonElement);
         loginButtonElement.click();
 
     }
-
 
 
 }

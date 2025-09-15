@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -138,6 +139,9 @@ public class SignupPageTest {
         Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
         yearSelect.selectByVisibleText(year);
         driver.findElement(FEMALE_RADIO).click();
+        String isFemaleChecked = driver.findElement(FEMALE_RADIO).getAttribute("checked");
+        assertNotNull(isFemaleChecked);
+        assertEquals("true", isFemaleChecked);
         WebElement mobileEmailFieldElement = driver.findElement(MOBILE_EMAIL_FIELD);
         mobileEmailFieldElement.sendKeys(email);
         WebElement passwordFieldElement = driver.findElement(PASSWORD_FIELD);
@@ -204,6 +208,9 @@ public class SignupPageTest {
         Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
         yearSelect.selectByVisibleText(year);
         driver.findElement(FEMALE_RADIO).click();
+        String isFemaleChecked = driver.findElement(FEMALE_RADIO).getAttribute("checked");
+        assertNotNull(isFemaleChecked);
+        assertEquals("true", isFemaleChecked);
         WebElement mobileEmailFieldElement = driver.findElement(MOBILE_EMAIL_FIELD);
         mobileEmailFieldElement.sendKeys(email);
         WebElement passwordFieldElement = driver.findElement(PASSWORD_FIELD);
@@ -242,7 +249,7 @@ public class SignupPageTest {
     }
 
     @Test
-    public void customGenderFieldVerificationTest(){
+    public void customGenderFieldVerificationTest() {
         driver.findElement(CUSTOM_RADIO).click();
         WebElement selectPronounDropdownElement = driver.findElement(SELECT_PRONOUN_DROPDOWN);
         assertNotNull(selectPronounDropdownElement);
@@ -259,6 +266,85 @@ public class SignupPageTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         WebElement logIntoFBHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(LOG_INTO_FACEBOOK_HEADER));
         assertNotNull(logIntoFBHeader);
+    }
+
+    @Test
+    public void sexRadioBtnTest() {
+        //verify female gender is checked
+        driver.findElement(FEMALE_RADIO).click();
+        String isFemaleChecked = driver.findElement(FEMALE_RADIO).getAttribute("checked");
+        assertNotNull(isFemaleChecked);
+        assertEquals("true", isFemaleChecked);
+        //verify male gender is checked
+        driver.findElement(MALE_RADIO).click();
+        String isMaleChecked = driver.findElement(MALE_RADIO).getAttribute("checked");
+        assertNotNull(isMaleChecked);
+        assertEquals("true", isMaleChecked);
+        //verify custom gender is checked
+        driver.findElement(CUSTOM_RADIO).click();
+        String isCustomChecked = driver.findElement(CUSTOM_RADIO).getAttribute("checked");
+        assertNotNull(isCustomChecked);
+        assertEquals("true", isCustomChecked);
+    }
+
+    @Test
+    public void errorMessageTest() {
+        driver.findElement(SIGNUP_BTN).click();
+        driver.findElement(MOBILE_EMAIL_FIELD).click();
+
+        WebElement errorMsg = driver.findElement(By.xpath("//*[contains(text(),'to reset your password')]"));
+        assertNotNull(errorMsg);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Jan,1,2000",
+            "Feb,20,1970"
+    })
+    public void dateDropDownTest(String month, String day, String year) {
+        Select monthSelect = new Select(driver.findElement(MONTH_SELECT));
+        monthSelect.selectByVisibleText(month);
+        String monthValue = monthSelect.getFirstSelectedOption().getText();
+        assertEquals(month, monthValue);
+
+        Select daySelect = new Select(driver.findElement(DAY_SELECT));
+        daySelect.selectByVisibleText(day);
+        String dayValue = driver.findElement(DAY_SELECT).getAttribute("value");
+        assertEquals(day, dayValue);
+
+        Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
+        yearSelect.selectByVisibleText(year);
+        String yearValue = driver.findElement(YEAR_SELECT).getAttribute("value");
+        assertEquals(year, yearValue);
+
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov", "Dec"})
+    public void monthDropDownTest(String month) {
+        driver.findElement(MONTH_SELECT).click();
+        driver.findElement(By.xpath("//*[text()='" + month + "']")).click();
+        Select monthSelect = new Select(driver.findElement(MONTH_SELECT));
+        String monthValue = monthSelect.getFirstSelectedOption().getText();
+        assertEquals(month, monthValue);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1","5","15","25","31"})
+    public void dayDropDownTest(String day) {
+        Select daySelect = new Select(driver.findElement(DAY_SELECT));
+        daySelect.selectByVisibleText(day);
+        String dayValue = driver.findElement(DAY_SELECT).getAttribute("value");
+        assertEquals(day, dayValue);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1905","1960","2025"})
+    public void yearDropDownTest(String year) {
+        Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
+        yearSelect.selectByVisibleText(year);
+        String yearValue = driver.findElement(YEAR_SELECT).getAttribute("value");
+        assertEquals(year, yearValue);
     }
 
 
