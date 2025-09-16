@@ -1,6 +1,30 @@
-2025-09-14 19:37:01.984 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
-2025-09-14 19:37:02.389 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 20:32:43 14/09/2025 EDT)
-2025-09-14 19:37:02.391 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 17:11:25 15/09/2025 EDT)
-2025-09-14 19:37:02.392 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
-2025-09-14 19:37:02.408 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
-2025-09-14 19:37:02.409 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe
+2025-09-16 09:44:44.239 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
+2025-09-16 09:44:44.639 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 10:14:26 16/09/2025 EDT)
+2025-09-16 09:44:44.640 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 20:22:52 16/09/2025 EDT)
+2025-09-16 09:44:44.641 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
+2025-09-16 09:44:44.661 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
+2025-09-16 09:44:44.662 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe
+2025-09-16 09:44:50.789 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
+2025-09-16 09:44:50.800 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 10:14:26 16/09/2025 EDT)
+2025-09-16 09:44:50.800 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 20:22:52 16/09/2025 EDT)
+2025-09-16 09:44:50.800 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
+2025-09-16 09:44:50.807 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
+2025-09-16 09:44:50.808 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe
+2025-09-16 09:44:53.985 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
+2025-09-16 09:44:53.998 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 10:14:26 16/09/2025 EDT)
+2025-09-16 09:44:53.998 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 20:22:52 16/09/2025 EDT)
+2025-09-16 09:44:53.999 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
+2025-09-16 09:44:54.004 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
+2025-09-16 09:44:54.005 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe
+2025-09-16 09:44:57.234 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
+2025-09-16 09:44:57.244 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 10:14:26 16/09/2025 EDT)
+2025-09-16 09:44:57.244 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 20:22:52 16/09/2025 EDT)
+2025-09-16 09:44:57.245 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
+2025-09-16 09:44:57.251 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
+2025-09-16 09:44:57.252 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe
+2025-09-16 09:45:00.899 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.1
+2025-09-16 09:45:00.909 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=140 in cache (valid until 10:14:26 16/09/2025 EDT)
+2025-09-16 09:45:00.910 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome140=140.0.7339.82 in cache (valid until 20:22:52 16/09/2025 EDT)
+2025-09-16 09:45:00.910 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 140.0.7339.82 (resolved driver for Chrome 140)
+2025-09-16 09:45:00.916 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 140.0.7339.82 found in cache
+2025-09-16 09:45:00.918 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\Alena\.cache\selenium\chromedriver\win64\140.0.7339.82\chromedriver.exe

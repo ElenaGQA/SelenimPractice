@@ -25,7 +25,6 @@ public class BasicSeleniumTest {
     @AfterAll
     public static void classTearDown() {
         SharedDriver.closeDriver();
-
     }
 
     @AfterEach
@@ -67,13 +66,11 @@ public class BasicSeleniumTest {
         assertNotNull(forgotPassElement);
         WebElement createNewAccButton = driver.findElement(By.xpath("//*[text() = 'Create new account']"));
         assertNotNull(createNewAccButton);
-
     }
 
 
-
     @Test
-    public void findloginBtnTest() {
+    public void findLoginBtnTest() {
 
         //find //button[@type='submit']
         WebElement loginButtonElement = driver.findElement(By.xpath("//*[text()='Log In']"));
@@ -82,5 +79,13 @@ public class BasicSeleniumTest {
 
     }
 
-
+    // example of hard wait, only use for debugging
+    public void pause() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Error has occured");
+            throw new RuntimeException(e);
+        }
+    }
 }

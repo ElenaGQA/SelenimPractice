@@ -5,6 +5,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +14,8 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+
 
 public class SignupPageTest {
 
@@ -43,32 +46,37 @@ public class SignupPageTest {
     private static final By HAVE_ACCOUNT_LINK = By.xpath("//a[text()='Already have an account?']");
 
     private static final By MISSING_INFO_ICON = By.xpath("//i[contains(@class, '_5dbc')]");
+    private static final By TERMS_LINK = By.xpath("//a[@id='terms-link']");
+    private static final By PRIVACY_POLICIES_LINK = By.xpath("//a[@id='privacy-link']");
 
     private static WebDriver driver;
 
-    @BeforeAll
-    public static void classSetup() {
-        driver = SharedDriver.getWebDriver();
-    }
-
-    @AfterAll
-    public static void classTearDown() {
-        SharedDriver.closeDriver();
-        //would be nice to delete account after all as well for reusability
-    }
+//    @BeforeAll
+//    public static void classSetup() {
+//        driver = SharedDriver.getWebDriver();
+//    }
+//
+//    @AfterAll
+//    public static void classTearDown() {
+//        SharedDriver.closeDriver();
+//        //would be nice to delete account after all as well for reusability
+//    }
 
     @BeforeEach
     public void setupEach() {
+        driver = SharedDriver.getWebDriver(); // fresh instance each time
         driver.get(HOME_PAGE_URL);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement createNewAccElement = wait.until(ExpectedConditions.elementToBeClickable(CREATE_NEW_ACC_BTN));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // most useful way of wait, specific to needs
+        //WebElement createNewAccElement = wait.until(ExpectedConditions.visibilityOfElementLocated(CREATE_NEW_ACC_BTN)); - element is visible
+        //WebElement createNewAccElement = wait.until(ExpectedConditions.presenceOfElementLocated(CREATE_NEW_ACC_BTN)); - element is in DOM
+        WebElement createNewAccElement = wait.until(ExpectedConditions.elementToBeClickable(CREATE_NEW_ACC_BTN)); // element is clickable
         createNewAccElement.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(SIGNUP_HEADER));
     }
 
     @AfterEach
     public void testTeardown() {
-        driver.get(HOME_PAGE_URL);
+        SharedDriver.closeDriver();
     }
 
     @Test
@@ -222,7 +230,7 @@ public class SignupPageTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"'', '','','','','',''",
+    @CsvSource({"'','',Feb,31,2025,'',''",
             "Jo@hn, Sm@ith,Jan,1,2000,invalid@test, 11",
             "John, '',Jan,1,2000,'', ValidPass123!"
     })
@@ -318,9 +326,65 @@ public class SignupPageTest {
 
     }
 
+    @Test
+    public void errorMessagesTest() {
+        String firstname = "John";
+        String lastname = "Smith";
+        String month = "May";
+        String day = "20";
+        String year = "1999";
+        String validPhoneEmail = "johns@sample.com";
+        String invalidPhoneEmail = "invalid@test";
+        String password = "samplePassword";
+
+        driver.findElement(SIGNUP_BTN).click();
+        driver.findElement(LASTNAME_FIELD).click();
+        WebElement lastnameErrorMsg = driver.findElement(By.xpath("//*[contains(text(),'your name')]"));
+        assertNotNull(lastnameErrorMsg);
+        driver.findElement(LASTNAME_FIELD).sendKeys(lastname);
+        driver.findElement(FIRSTNAME_FIELD).click();
+        WebElement firstnameErrorMsg = driver.findElement(By.xpath("//*[contains(text(),'your name')]"));
+        assertNotNull(firstnameErrorMsg);
+        driver.findElement(FIRSTNAME_FIELD).sendKeys(firstname);
+        driver.findElement(MONTH_SELECT).click();
+        WebElement monthErrorMsg = driver.findElement(By.xpath("//*[contains(text(),'use your real birthday')]"));
+        assertNotNull(monthErrorMsg);
+        Select monthSelect = new Select(driver.findElement(MONTH_SELECT));
+        monthSelect.selectByVisibleText(month);
+        driver.findElement(DAY_SELECT).click();
+        WebElement dayErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'use your real birthday')]"));
+        assertNotNull(dayErrorMsg);
+        Select daySelect = new Select(driver.findElement(DAY_SELECT));
+        daySelect.selectByVisibleText(day);
+        driver.findElement(YEAR_SELECT).click();
+        WebElement yearErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'use your real birthday')]"));
+        assertNotNull(yearErrorMsg);
+        Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
+        yearSelect.selectByVisibleText(year);
+        driver.findElement(SIGNUP_BTN).click();
+        WebElement genderErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'choose a gender')]"));
+        assertNotNull(genderErrorMsg);
+        driver.findElement(CUSTOM_RADIO).click();
+        driver.findElement(SIGNUP_BTN).click();
+        WebElement phoneEmailErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'reset your password')]"));
+        assertNotNull(phoneEmailErrorMsg);
+        driver.findElement(MOBILE_EMAIL_FIELD).sendKeys(invalidPhoneEmail);
+        driver.findElement(SIGNUP_BTN).click();
+        WebElement invalidPhoneEmailErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'valid mobile number')]"));
+        assertNotNull(invalidPhoneEmailErrorMsg);
+        driver.findElement(MOBILE_EMAIL_FIELD).sendKeys(validPhoneEmail);
+        driver.findElement(PASSWORD_FIELD).click();
+        WebElement passwordErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'Enter a combination')]"));
+        assertNotNull(passwordErrorMsg);
+        driver.findElement(PASSWORD_FIELD).sendKeys(password);
+        driver.findElement(SIGNUP_BTN).click();
+        WebElement customGenderErrorMsg = driver.findElement(By.xpath("//*[contains(text(), 'your pronoun')]"));
+        assertNotNull(customGenderErrorMsg);
+    }
+
 
     @ParameterizedTest
-    @ValueSource(strings = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug", "Sep", "Oct", "Nov", "Dec"})
+    @ValueSource(strings = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"})
     public void monthDropDownTest(String month) {
         driver.findElement(MONTH_SELECT).click();
         driver.findElement(By.xpath("//*[text()='" + month + "']")).click();
@@ -330,7 +394,7 @@ public class SignupPageTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1","5","15","25","31"})
+    @ValueSource(strings = {"1", "15", "31"})
     public void dayDropDownTest(String day) {
         Select daySelect = new Select(driver.findElement(DAY_SELECT));
         daySelect.selectByVisibleText(day);
@@ -339,7 +403,7 @@ public class SignupPageTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1905","1960","2025"})
+    @ValueSource(strings = {"1905", "1960", "2025"})
     public void yearDropDownTest(String year) {
         Select yearSelect = new Select(driver.findElement(YEAR_SELECT));
         yearSelect.selectByVisibleText(year);
@@ -347,5 +411,54 @@ public class SignupPageTest {
         assertEquals(year, yearValue);
     }
 
+    @Test
+    public void genderRadioButtonsSiblingsTest() {
+        WebElement femaleRadio = driver.findElement(By.xpath("//label[text()='Female']/input"));
+        WebElement maleRadio = driver.findElement(By.xpath("//label[text()='Male']/input"));
+        WebElement customRadio = driver.findElement(By.xpath("//label[text()='Custom']/input"));
 
+        femaleRadio.click();
+        assertTrue(femaleRadio.isSelected(), "Female radio should be selected");
+        maleRadio.click();
+        assertTrue(maleRadio.isSelected(), "Male radio should be selected");
+        customRadio.click();
+        assertTrue(customRadio.isSelected(), "Custom radio should be selected");
+    }
+
+    @Test
+    public void termsLinkTest() {
+        String originalWindow = driver.getWindowHandle();
+        driver.findElement(TERMS_LINK).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        for(String str : driver.getWindowHandles()){
+            driver.switchTo().window(str);
+        }
+        driver.getCurrentUrl();
+
+        String expectedUrl = "https://www.facebook.com/legal/terms/update";
+        assertEquals(expectedUrl, driver.getCurrentUrl());
+        driver.close();
+        driver.switchTo().window(originalWindow);
+    }
+
+    @Test
+    public void PrivacyPoliciesLinkTest() {
+        String originalWindow = driver.getWindowHandle();
+        driver.findElement(PRIVACY_POLICIES_LINK).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        for(String str : driver.getWindowHandles()){
+            driver.switchTo().window(str);
+        }
+        driver.getCurrentUrl();
+
+        String expectedUrl = "https://www.facebook.com/privacy/policy/?entry_point=data_policy_redirect&entry=0";
+        assertEquals(expectedUrl, driver.getCurrentUrl());
+        driver.close();
+        driver.switchTo().window(originalWindow);
+
+    }
 }
